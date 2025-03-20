@@ -11,7 +11,7 @@ const char *password = "12345678";
 const char *ntpServer1 = "pool.ntp.org";
 const char *ntpServer2 = "time.nist.gov";
 const long gmtOffset_sec = 7*3600;
-const int daylightOffset_sec = 3600;
+const int daylightOffset_sec = 0;
 const char *time_zone = "CET-1CEST,M3.5.0,M10.5.0/3";  // TimeZone rule for Europe/Rome including daylight adjustment rules (optional)
 
  
@@ -60,6 +60,7 @@ void readSoilMoisteur(){
   //Serial.print("Soil Moisture value:");
   //Serial.println(soilMoistureValue);
   soilMoisturePercentage = map(soilMoistureValue,2730,1215,0,100);
+  if (soilMoisturePercentage <0 ) soilMoisturePercentage = 0;
   //Serial.print("Soil Moisture Percentage:");
   //Serial.println(soilMoisturePercentage);
   char soilMoisturePercentagetxt[10];
@@ -91,12 +92,13 @@ void readLDR(){
 }
 void checkWater(){
  waterSensor = analogRead(6);
- if (waterSensor >  100){
-  Serial.println("no water, can't pump water anymore");
- }
- else{
+ if (waterSensor < 100){
   Serial.println("water detected! start to pump water");
   digitalWrite(relay1, HIGH);
+ }
+ else {
+  Serial.println("no water, can't pump water anymore");
+  digitalWrite(relay1, LOW);
  }
  
 }
