@@ -5,8 +5,8 @@
 
 HardwareSerial TFTSerial(1);
 
-const char *ssid = "Rain74";
-const char *password = "12345678";
+const char *ssid = "VNPT01";
+const char *password = "khanhnguyen01";
 
 const char *ntpServer1 = "pool.ntp.org";
 const char *ntpServer2 = "time.nist.gov";
